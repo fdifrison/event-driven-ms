@@ -1,12 +1,13 @@
 package com.fdifrison.user;
 
+import com.fdifrison.common.registration.dto.UserStatus;
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "user")
-class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -17,11 +18,6 @@ class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    public enum UserStatus {
-        PENDING,
-        ACTIVE,
-        CANCELLED,
-    }
 
     public UUID getId() {
         return id;

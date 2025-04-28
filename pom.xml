@@ -21,10 +21,11 @@
         <maven.compiler.target>24</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot-dependencies.version>3.4.4</spring-boot-dependencies.version>
-        <spring-modulith-starter-core.version>1.3.4</spring-modulith-starter-core.version>
+        <spring-modulith-starter-core.version>1.3.5</spring-modulith-starter-core.version>
         <axon.version>4.10.1</axon.version>
         <spring-modulith-starter-test.version>1.3.5</spring-modulith-starter-test.version>
         <spring-boot-maven-plugin.version>3.4.5</spring-boot-maven-plugin.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
 
     <dependencyManagement>
@@ -47,6 +48,11 @@
                 <version>${axon.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.modulith</groupId>
