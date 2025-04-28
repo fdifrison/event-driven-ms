@@ -1,11 +1,7 @@
 package com.fdifrison.user;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.UuidGenerator;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -21,14 +17,9 @@ class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @CreationTimestamp
-    private Instant created;
-    @UpdateTimestamp
-    private Instant modified;
-
     public enum UserStatus {
-        REGISTERED,
-        SUBSCRIBED,
+        PENDING,
+        ACTIVE,
         CANCELLED,
     }
 
@@ -68,21 +59,4 @@ class User {
         return this;
     }
 
-    public Instant getCreated() {
-        return created;
-    }
-
-    public User setCreated(Instant created) {
-        this.created = created;
-        return this;
-    }
-
-    public Instant getModified() {
-        return modified;
-    }
-
-    public User setModified(Instant modified) {
-        this.modified = modified;
-        return this;
-    }
 }

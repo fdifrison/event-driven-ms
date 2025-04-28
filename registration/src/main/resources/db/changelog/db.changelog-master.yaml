@@ -16,23 +16,15 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: email
                   type: text
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: status
                   type: text
-                  constraints:
-                    nullable: false
-              - column:
-                  name: created
-                  type: timestamp with timezone
-                  constraints:
-                    nullable: false
-              - column:
-                  name: modified
-                  type: timestamp with timezone
                   constraints:
                     nullable: false

@@ -1,0 +1,16 @@
+services:
+  axon-server:
+    image: axoniq/axonserver:latest
+    container_name: axonserver
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+    volumes:
+      - data:/axonserver/data
+      - events:/axonserver/events
+      - config:/axonserver/config
+
+volumes:
+  data:
+  events:
+  config:
