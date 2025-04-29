@@ -4,7 +4,7 @@ databaseChangeLog:
       author: fdifrison
       changes:
         - createTable:
-            tableName: users
+            tableName: notification
             columns:
               - column:
                   name: id
@@ -12,19 +12,12 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: username
+                  name: event
                   type: text
                   constraints:
                     nullable: false
-                    unique: true
               - column:
-                  name: email
-                  type: text
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: status
-                  type: text
+                  name: timestamp
+                  type: java.sql.types.timestamp_with_timezone
                   constraints:
                     nullable: false

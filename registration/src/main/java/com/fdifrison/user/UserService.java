@@ -21,6 +21,7 @@ class UserService {
         this.userMapper = userMapper;
     }
 
+    @Transactional
     public UserDTO createUser(UserDTO userDTO) {
         var user = userMapper.toUser(userDTO).setStatus(UserStatus.PENDING);
         var saved = userRepository.save(user);

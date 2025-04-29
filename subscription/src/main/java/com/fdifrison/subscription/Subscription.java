@@ -1,7 +1,10 @@
 package com.fdifrison.subscription;
 
+import com.fdifrison.common.subscription.dto.SubscriptionPlan;
+import com.fdifrison.common.subscription.dto.SubscriptionStatus;
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -11,6 +14,12 @@ public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(nullable = false)
     private UUID userId;
-    private
+    @Enumerated(EnumType.STRING)
+    private SubscriptionPlan plan;
+    @Enumerated(EnumType.STRING)
+    private SubscriptionStatus status;
+    private Instant startDate;
+    private Instant endDate;
 }

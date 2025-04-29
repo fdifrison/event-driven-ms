@@ -1,5 +1,5 @@
 @ApplicationModule(displayName = "user",
-        allowedDependencies = {"common.registration.dto"}
+        allowedDependencies = {"common.subscription.dto"}
 )
 package com.fdifrison.subscription;
 

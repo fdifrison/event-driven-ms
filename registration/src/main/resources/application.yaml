@@ -17,3 +17,10 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+
+logging:
+  level:
+    org.hibernate:
+      SQL: debug
+      orm.jdbc.bind: trace
+      type.descriptor.sql: trace
