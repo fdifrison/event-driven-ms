@@ -18,7 +18,5 @@ interface UserMapper {
     User toUser(UserCreatedEvent event);
     UserDTO toUserDTO(User user);
 
-    CreateUserCommand toCreateUserCommand(UserDTO user);
-    UserCreatedEvent toUserCreatedEvent(CreateUserCommand user);
-    UserAggregate toUserAggregate(UserCreatedEvent event);
+
 }

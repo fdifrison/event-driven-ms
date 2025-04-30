@@ -16,8 +16,9 @@ import java.util.UUID;
 @Aggregate
 class UserAggregate {
 
-    @AggregateIdentifier
+
     private UUID id;
+    @AggregateIdentifier
     private String username;
     private String email;
     private UserStatus status;
@@ -27,13 +28,8 @@ class UserAggregate {
     }
 
     @CommandHandler
-    public UserAggregate(CreateUserCommand command, UserRepository userRepository, UserMapper userMapper) {
-        var user = userRepository.findByEmailAndStatusNot(command.email(), UserStatus.CANCELLED);
-        if (user.isPresent()) {
-            throw new RuntimeException(String.format("User with email %s already exists", command.email()));
-        }
-        var event = userMapper.toUserCreatedEvent(command);
-        AggregateLifecycle.apply(event);
+    public void handle(CreateUserCommand command) {
+        AggregateLifecycle.apply(new UserCreatedEvent(command));
     }
 
     @EventSourcingHandler
@@ -44,13 +40,9 @@ class UserAggregate {
     }
 
 
-
     @CommandHandler
-    public void handle(UserRepository userRepository, DeleteUserCommand command) {
-        var user = userRepository
-                .findByIdAndStatusNot(command.id(), UserStatus.CANCELLED)
-                .orElseThrow(() -> new RuntimeException("No valid user found for id: " + command.id()));
-        AggregateLifecycle.apply(new UserDeletedEvent(user.getId()));
+    public void handle(DeleteUserCommand command) {
+        AggregateLifecycle.apply(new UserDeletedEvent(command.id()));
 
     }
 
