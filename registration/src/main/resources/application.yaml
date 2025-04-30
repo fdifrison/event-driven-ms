@@ -15,7 +15,7 @@ spring:
         format_sql: true
         use_sql_comments: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     open-in-view: false
 
 logging:
@@ -24,3 +24,11 @@ logging:
       SQL: debug
       orm.jdbc.bind: trace
       type.descriptor.sql: trace
+
+axon:
+  event-handling:
+    processors:
+      customer-group:
+        mode: subscribing
+  axonserver:
+    servers: localhost:8124

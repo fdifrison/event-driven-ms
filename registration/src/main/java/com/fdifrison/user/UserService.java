@@ -2,11 +2,13 @@ package com.fdifrison.user;
 
 import com.fdifrison.common.registration.dto.UserDTO;
 import com.fdifrison.common.registration.dto.UserStatus;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
+import com.fdifrison.common.registration.event.UserCreatedEvent;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,16 +23,32 @@ class UserService {
         this.userMapper = userMapper;
     }
 
-    @Transactional
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public UserDTO createUser(UserDTO userDTO) {
-        var user = userMapper.toUser(userDTO).setStatus(UserStatus.PENDING);
-        var saved = userRepository.save(user);
+        var user = userRepository.findByEmailAndStatusNot(userDTO.email(), UserStatus.CANCELLED);
+        checkIfActiveUserWithSameEmailExist(userDTO.email(), user);
+        var saved = userRepository.save(userMapper.toUser(userDTO).setStatus(UserStatus.PENDING));
         return userMapper.toUserDTO(saved);
     }
 
-    @Transactional
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public void createUser(UserCreatedEvent event) {
+        var user = userRepository.findByEmailAndStatusNot(event.email(), UserStatus.CANCELLED);
+        checkIfActiveUserWithSameEmailExist(event.email(), user);
+        userRepository.save(userMapper.toUser(event).setStatus(UserStatus.PENDING));
+    }
+
+    private static void checkIfActiveUserWithSameEmailExist(String email, Optional<User> user) {
+        if (user.isPresent()) {
+            throw new RuntimeException("User already exists with email: " + email);
+        }
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public UserDTO deleteUser(UUID id) {
-        var user = userRepository.findById(id).orElseThrow();
+        var user = userRepository.findByIdAndStatusNot(id, UserStatus.CANCELLED).orElseThrow();
         user.setStatus(UserStatus.CANCELLED);
         return userMapper.toUserDTO(user);
     }

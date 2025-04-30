@@ -1,5 +1,6 @@
-@ApplicationModule(displayName = "user",
-        allowedDependencies = {"common.registration.dto"}
+@ApplicationModule(
+        displayName = "user",
+        allowedDependencies = {"common.registration"}
 )
 package com.fdifrison.user;
 

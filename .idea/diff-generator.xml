@@ -2,6 +2,6 @@
 <project version="4">
   <component name="DiffGenerationConfig">
     <option name="sourceModelValue" value="registration:registration" />
-    <option name="targetDbValue" value="182cea98-99af-4eaf-aaf7-e48b32f93fcc__registration_public" />
+    <option name="targetDbValue" value="182cea98-99af-4eaf-aaf7-e48b32f93fcc" />
   </component>
 </project>
