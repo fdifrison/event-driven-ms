@@ -1,24 +1,36 @@
 package com.fdifrison.common.registration.command;
 
 import com.fdifrison.common.registration.dto.UserDTO;
+import com.fdifrison.common.registration.dto.UserStatus;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
+
+import java.util.UUID;
 
 public class CreateUserCommand {
 
     @TargetAggregateIdentifier
+    private UUID id;
     private String username;
     private String email;
+    private UserStatus status;
 
-    public CreateUserCommand(String username,
-                             String email) {
-        this.username = username;
-        this.email = email;
-    }
 
     public CreateUserCommand(UserDTO user) {
-        this(user.username(), user.email());
+        this.id = user.id();
+        this.username = user.username();
+        this.email = user.email();
+        this.status = user.status();
+
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public CreateUserCommand setId(UUID id) {
+        this.id = id;
+        return this;
+    }
 
     public String getUsername() {
         return username;
@@ -35,6 +47,15 @@ public class CreateUserCommand {
 
     public CreateUserCommand setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public CreateUserCommand setStatus(UserStatus status) {
+        this.status = status;
         return this;
     }
 }

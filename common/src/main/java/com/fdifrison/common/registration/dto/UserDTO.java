@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public record UserDTO(UUID id,
                       @NotEmpty String username,
-                      @NotEmpty String email) {
+                      @NotEmpty String email,
+                      UserStatus status) {
 
 }

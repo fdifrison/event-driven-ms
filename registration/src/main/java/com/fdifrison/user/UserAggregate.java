@@ -16,9 +16,8 @@ import java.util.UUID;
 @Aggregate
 class UserAggregate {
 
-
-    private UUID id;
     @AggregateIdentifier
+    private UUID id;
     private String username;
     private String email;
     private UserStatus status;
@@ -28,15 +27,16 @@ class UserAggregate {
     }
 
     @CommandHandler
-    public void handle(CreateUserCommand command) {
-        AggregateLifecycle.apply(new UserCreatedEvent(command));
+    public UserAggregate(CreateUserCommand command, UserService userService) {
+        var user = userService.createUser(command.setStatus(UserStatus.PENDING));
     }
 
     @EventSourcingHandler
     public void on(UserCreatedEvent event) {
-        this.username = event.username();
-        this.email = event.email();
-        this.status = UserStatus.PENDING;
+        this.id = event.getId();
+        this.username = event.getUsername();
+        this.email = event.getEmail();
+        this.status = event.getStatus();
     }
 
 
@@ -50,7 +50,6 @@ class UserAggregate {
     public void on(UserDeletedEvent event) {
         this.id = event.id();
     }
-
 
 
 }

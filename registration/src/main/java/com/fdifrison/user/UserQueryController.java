@@ -20,7 +20,6 @@ class UserQueryController {
         this.queryGateway = queryGateway;
     }
 
-
     @GetMapping("{id}")
     public UserDTO getUser(@PathVariable UUID id) {
         return queryGateway.query(new GetUserQuery(id), ResponseTypes.instanceOf(UserDTO.class)).join();

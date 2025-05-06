@@ -32,8 +32,8 @@ logging:
 axon:
   event-handling:
     processors:
-      customer-group:
+      user-group:
         mode: subscribing
   axonserver:
     servers: localhost:8124
-    suppress-download-message: true
+    component-name: registration-ms

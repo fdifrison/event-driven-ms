@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
-class User extends BaseUser<User> {
+@Table(name = "users_view")
+class UserView extends BaseUser<UserView> {
+
 }
